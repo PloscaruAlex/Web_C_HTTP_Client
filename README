@@ -1,0 +1,36 @@
+Ploscaru Alexandru - 321CD - Tema 4 - PCOM
+
+    Pentru aceasta tema am creat un program care ajuta utilizatorul sa 
+comunice cu serverul. In fisierul client.c am implementat functionalitatea 
+principala a programului, care foloseste functii din fisierul helpers.c si 
+utilizeaza biblioteca de parsare JSON parson.c.
+    Programul principal contine o bucla infinita din care se iese doar atunci
+cand primeste de la tastatura comanda exit. In aceasta bucla programul accepta
+comenzi de la utilizator si in functie de comanda, acesta trimite catre server 
+requestul HTTP respectiv. In aceasta bucla fiecare comanda de la utilizator
+este comparata cu comenzile cunoscute, iar daca este introdusa o comanda 
+necunoscuta, programul ii va spune utilizatorului acest lucru.
+    Pentru validarea datelor de input, in cazul add_book, campurile unei carti
+pot fi introduse cu spatii, dar restul, cum ar fi username si password, nu 
+permit acest lucru. In cazul in care, unde trebuie introdus un numar, nu 
+este respectat acest lucru, programul va afisa eroarea si nu va trimite
+requestul, ca in cazurie id sau page_count.
+    In general, la output programul afiseaza utilizatorului raspunsul HTTP 
+respectiv, adica 200, 400 sau 500, in functie de situatie. 
+    Am observat ca serverul inchide conexiunea dupa 5 secunde de inactivitate,
+asa ca inainte de a trimite un request, am fost nevoit sa verific cu ajutorul 
+unui timer daca conexiunea mai este deschisa si am observat ca daca 
+astept pana la 5 secunde, conexiunea se poate inchide in timpul dintre 
+verificarea timerului si trimiterea requestului, asa ca am folosit un timer de
+4 secunde in loc de 5. Daca conexiunea se inchidea, o redeschideam si dupa
+caz, ma relogam sau intram inapoi in biblioteca, ca utilizatorul sa nu fie
+nevoit sa faca aceste lucruri. 
+    Pentru parsarea raspunsurilor HTTP de la server, am folosit functiile
+standard din string.h. Am intalnit unele cazuri cand serverul nu trimitea
+tot pachetul si il fragmenta si din aceasta cauza am fost nevoit sa-mi 
+scriu propria functie, care afla content-length din header si primeste 
+pachete pana cand a fost primit tot payload-ul pachetului.
+    Am folosit niste variabile ca sa retin daca utilizatorul este 
+autentificat si daca are acces la biblioteca, pentru a-mi usura munca.
+    Aceasta tema mi-a placut foarte mult, mi s-a parut interesanta
+si m-a invatat multe lucruri pe care abia astept sa le aplic.
